@@ -6,10 +6,12 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,7 +23,11 @@ public class AddHeroSteps {
 
 	@Given("I wish save a new hero")
 	public void i_wish_save_a_new_hero() {
-		driver = new ChromeDriver();
+		WebDriverManager.chromedriver().setup();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        driver = new ChromeDriver(chromeOptions);
+		//driver = new ChromeDriver();
 		driver.get("https://angular-heroi.herokuapp.com/herois");
 		driver.manage().window().setSize(new Dimension(1200, 765));
 	}
